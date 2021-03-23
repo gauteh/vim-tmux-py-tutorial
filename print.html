@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Minimal vim-tmux-python-git setup</title>
+        <title>vim-tmux-python-git setup</title>
         
         <meta name="robots" content="noindex" />
         
@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.</strong> Requirements</a></li><li class="chapter-item expanded "><a href="dotfiles.html"><strong aria-hidden="true">2.</strong> Dotfiles</a></li><li class="chapter-item expanded "><a href="shell.html"><strong aria-hidden="true">3.</strong> Shell</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -129,7 +129,7 @@
                         
                     </div>
 
-                    <h1 class="menu-title">Minimal vim-tmux-python-git setup</h1>
+                    <h1 class="menu-title">vim-tmux-python-git setup</h1>
 
                     <div class="right-buttons">
                         
@@ -137,6 +137,10 @@
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
+                        
+                        <a href="https://github.com/gauteh/vim-tmux-py-tutorial" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
                         
                     </div>
                 </div>
@@ -165,7 +169,104 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+                        <h1 id="requirements"><a class="header" href="#requirements">Requirements</a></h1>
+<h2 id="ubuntu-packages"><a class="header" href="#ubuntu-packages">Ubuntu packages</a></h2>
+<pre><code class="language-sh">apt install tmux
+apt install nodejs      # node
+snap install ripgrep    # better grep
+apt install stow        # manage dotfiles
+apt install direnv      # manage environment in directories
+</code></pre>
+<h2 id="miniconda3-python"><a class="header" href="#miniconda3-python">Miniconda3 (Python)</a></h2>
+<p>Install <a href="https://docs.conda.io/en/latest/miniconda.html">miniconda3</a>:</p>
+<ul>
+<li><a href="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh">Linux 64-bit</a></li>
+</ul>
+<pre><code class="language-sh">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh
+</code></pre>
+<h1 id="dotfiles"><a class="header" href="#dotfiles">Dotfiles</a></h1>
+<p>Dotfiles can be managed with git and stow. Stow creates links into the target directory, so that under each package you <code>stow</code> you create files with the hierarchy they should have below <code>$HOME</code>:</p>
+<pre><code>dotfiles/
+  bash/.bashrc
+</code></pre>
+<p>and running: <code>stow -t ~ bash</code> from within <code>dotfiles</code> will link <code>.bashrc</code> to <code>~/.bashrc</code> (unless it already exists, like it usually does).</p>
+<h1 id="setting-up-the-shell"><a class="header" href="#setting-up-the-shell">Setting up the shell</a></h1>
+<p>miniconda3 should now be present in <code>.bashrc</code> as part of the <a href="requirements.html">requirements</a> section.</p>
+<h2 id="useful-aliases"><a class="header" href="#useful-aliases">Useful aliases</a></h2>
+<p>Add to <code>.bashrc</code>:</p>
+<pre><code class="language-sh">alias stow='stow -t ~' # target for stow is home directory
+</code></pre>
+<h2 id="bonus-fancy-prompt"><a class="header" href="#bonus-fancy-prompt">Bonus: Fancy prompt</a></h2>
+<p>Install <a href="https://starship.rs/">starship.rs</a>.</p>
+<h2 id="example-bashrc"><a class="header" href="#example-bashrc">Example .bashrc</a></h2>
+<pre><code class="language-sh">export PS1='\[\033[1m\][\h \W] \$ \[\033[0m\]'
+
+## git
+if [[ -e /usr/share/git/completion/git-prompt.sh ]]; then
+  source /usr/share/git/completion/git-prompt.sh
+
+  export GIT_PS1_SHOWDIRTYSTATE=true
+  export GIT_PS1_SHOWSTASHSTATE=true
+  export GIT_PS1_SHOWUNTRACKEDFILES=true
+  export PS1='\[\033[1m\][\h \W]$(__git_ps1 &quot;(%s)&quot;) \$ \[\033[0m\]'
+fi
+
+
+if [[ -e &quot;$HOME/.mconda3&quot; ]]; then
+  # &gt;&gt;&gt; conda initialize &gt;&gt;&gt;
+  # !! Contents within this block are managed by 'conda init' !!
+  __conda_setup=&quot;$('$HOME/.mconda3/bin/conda' 'shell.bash' 'hook' 2&gt; /dev/null)&quot;
+  if [ $? -eq 0 ]; then
+      eval &quot;$__conda_setup&quot;
+  else
+      if [ -f &quot;$HOME/.mconda3/etc/profile.d/conda.sh&quot; ]; then
+          . &quot;$HOME/.mconda3/etc/profile.d/conda.sh&quot;
+      else
+          export PATH=&quot;$HOME/.mconda3/bin:$PATH&quot;
+      fi
+  fi
+  unset __conda_setup
+  # &lt;&lt;&lt; conda initialize &lt;&lt;&lt;
+fi
+
+## Settings
+export HISTFILESIZE=1000000
+
+## Aliases
+alias stow='stow -t ~'
+alias ll='ls -l'
+
+## Paths
+
+# Add all subdirs and sub-subdirs in ~/.bin to PATH
+if [[ $(uname) == &quot;Darwin&quot; ]]; then
+  export PATH=$PATH$( find $HOME/.bin/ -print0 | xargs -0 stat -f ':%p' )
+else
+  export PATH=$PATH$( find $HOME/.bin/ -printf &quot;:%p&quot; )
+  export PATH=$PATH$( find $HOME/.bin/*/* -type d -printf &quot;:%p&quot; )
+fi
+
+# Mac OS path helper
+if [ -e /usr/lib/path_helper ]; then
+  eval `/usr/libexec/path_helper -s`
+fi
+
+# Prompt
+if which starship 2&gt;&amp;1 &gt; /dev/null; then
+  eval &quot;$(starship init bash)&quot;
+fi
+
+# Direnv
+if which direnv 2&gt;&amp;1 &gt; /dev/null; then
+  eval &quot;$(direnv hook bash)&quot;
+fi
+
+# allow any key to unfreeze after C-s
+stty ixany
+
+
+</code></pre>
 
                     </main>
 
