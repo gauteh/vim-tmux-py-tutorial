@@ -1,3 +1,7 @@
+# Intro
+
+A setup of vim, tmux, git for python development with code-completion and linting.
+
 # Requirements
 
 ## Ubuntu packages
