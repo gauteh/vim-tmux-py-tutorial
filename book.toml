@@ -3,4 +3,8 @@ authors = ["Gaute Hope"]
 language = "en"
 multilingual = false
 src = "src"
-title = "Minimal vim-tmux-python-git setup"
+title = "vim-tmux-python-git setup"
+
+[output.html]
+git-repository-url = "https://github.com/gauteh/vim-tmux-py-tutorial"
+

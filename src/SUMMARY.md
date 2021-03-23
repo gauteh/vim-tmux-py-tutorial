@@ -1,3 +1,5 @@
 # Summary
 
-- [Chapter 1](./chapter_1.md)
+- [Requirements](./requirements.md)
+- [Dotfiles](./dotfiles.md)
+- [Shell](./shell.md)
