@@ -28,6 +28,13 @@ if [[ -e "$HOME/.mconda3" ]]; then
   # <<< conda initialize <<<
 fi
 
+# Node version manager
+if [[ -e "$HOME/.nvm" ]]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
 ## Settings
 export HISTFILESIZE=1000000
 
@@ -38,6 +45,7 @@ alias ll='ls -l'
 ## Paths
 
 # Add all subdirs and sub-subdirs in ~/.bin to PATH
+mkdir -p ~/.bin
 if [[ $(uname) == "Darwin" ]]; then
   export PATH=$PATH$( find $HOME/.bin/ -print0 | xargs -0 stat -f ':%p' )
 else
