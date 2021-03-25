@@ -1,3 +1,7 @@
+# Shell
+
+Consider using `zsh`, otherwise `bash` works fine.
+
 # Setting up the shell
 
 miniconda3 should now be present in `.bashrc` as part of the [requirements](requirements.md) section.

@@ -16,7 +16,9 @@ apt install direnv      # manage environment in directories
 
 ## If you do not have access to install this manually
 
-1) Make dir for binaries:
+> NOTE: Some of these instructions need to be updated to use different binaries if you are on a Mac.
+
+Make dir for binaries:
 
 ```
 mkdir -p ~/.bin
@@ -51,6 +53,16 @@ chmod +x ~/.bin/direnv
 Stow:
 
 ```
+mkdir -p ~/.bin/stow
+cd ~/.bin/stow
+wget http://ftp.gnu.org/gnu/stow/stow-2.3.1.tar.gz
+tar xf stow-2.3.1.tar.gz
+cd stow-2.3.1
+./configure --prefix=$HOME/.bin/stow/inst
+make
+make install
+cd ~/.bin/stow
+ln -s ~/.bin/stow/inst/bin/stow stow
 ```
 
 ## Miniconda3 (Python)
@@ -67,5 +79,6 @@ sh Miniconda3-latest-Linux-x86_64.sh
 ### Creating an enviornment
 
 ```sh
-conda create -n vtgp python=3
+conda create -n wombat python=3
 ```
+
