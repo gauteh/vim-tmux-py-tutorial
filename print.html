@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.</strong> Intro &amp; Requirements</a></li><li class="chapter-item expanded "><a href="dotfiles.html"><strong aria-hidden="true">2.</strong> Dotfiles</a></li><li class="chapter-item expanded "><a href="shell.html"><strong aria-hidden="true">3.</strong> Shell</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.</strong> Intro &amp; Requirements</a></li><li class="chapter-item expanded "><a href="dotfiles.html"><strong aria-hidden="true">2.</strong> Dotfiles</a></li><li class="chapter-item expanded "><a href="shell.html"><strong aria-hidden="true">3.</strong> Shell</a></li><li class="chapter-item expanded "><a href="tmux.html"><strong aria-hidden="true">4.</strong> Tmux</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">6.</strong> Completion</a></li><li class="chapter-item expanded "><a href="lint-format.html"><strong aria-hidden="true">7.</strong> linting + formatting</a></li><li class="chapter-item expanded "><a href="pytest-vector.html"><strong aria-hidden="true">8.</strong> pytest + vectorization</a></li><li class="chapter-item expanded "><a href="git-vim.html"><strong aria-hidden="true">9.</strong> git in vim</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -187,6 +187,9 @@ apt install direnv      # manage environment in directories
 <pre><code class="language-sh">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 sh Miniconda3-latest-Linux-x86_64.sh
 </code></pre>
+<h3 id="creating-an-enviornment"><a class="header" href="#creating-an-enviornment">Creating an enviornment</a></h3>
+<pre><code class="language-sh">conda create -n vtgp python=3
+</code></pre>
 <h1 id="dotfiles"><a class="header" href="#dotfiles">Dotfiles</a></h1>
 <p>Dotfiles can be managed with git and stow. Stow creates links into the target directory, so that under each package you <code>stow</code> you create files with the hierarchy they should have below <code>$HOME</code>:</p>
 <pre><code>dotfiles/
@@ -269,6 +272,51 @@ stty ixany
 
 
 </code></pre>
+<h1 id="tmux"><a class="header" href="#tmux">Tmux</a></h1>
+<ul>
+<li>Moving around</li>
+<li>Copy-paste-search-scroll</li>
+<li>Refreshing environment</li>
+<li>Moving around with vim seamlessly</li>
+<li>Copy-paste to vim</li>
+</ul>
+<h1 id="completion"><a class="header" href="#completion">Completion</a></h1>
+<h2 id="plugins"><a class="header" href="#plugins">Plugins</a></h2>
+<ul>
+<li>vim-plug</li>
+<li>unimpaired</li>
+<li>fugitive</li>
+<li>fzf</li>
+<li>coc.nvim</li>
+</ul>
+<h2 id="moving-around"><a class="header" href="#moving-around">Moving around</a></h2>
+<h1 id="completion-1"><a class="header" href="#completion-1">Completion</a></h1>
+<h2 id="plugins-1"><a class="header" href="#plugins-1">Plugins</a></h2>
+<ul>
+<li>vim-plug</li>
+<li>unimpaired</li>
+<li>fugitive</li>
+<li>fzf</li>
+<li>coc.nvim</li>
+</ul>
+<h2 id="moving-around-1"><a class="header" href="#moving-around-1">Moving around</a></h2>
+<h1 id="linting--formatting"><a class="header" href="#linting--formatting">linting + formatting</a></h1>
+<ul>
+<li>pylint</li>
+<li>yapf</li>
+</ul>
+<h1 id="pytest--vectorization"><a class="header" href="#pytest--vectorization">pytest + vectorization</a></h1>
+<ul>
+<li>set up pytest</li>
+<li>vectorize and benchmark some code</li>
+</ul>
+<h1 id="git-in-vim"><a class="header" href="#git-in-vim">git in vim</a></h1>
+<ul>
+<li>basic fugitive</li>
+<li>browsing history and diffs</li>
+<li>resolve a conflict</li>
+<li>rebase</li>
+</ul>
 
                     </main>
 

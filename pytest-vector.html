@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Intro &amp; Requirements - vim-tmux-python-git setup</title>
+        <title>pytest + vectorization - vim-tmux-python-git setup</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.</strong> Intro &amp; Requirements</a></li><li class="chapter-item expanded "><a href="dotfiles.html"><strong aria-hidden="true">2.</strong> Dotfiles</a></li><li class="chapter-item expanded "><a href="shell.html"><strong aria-hidden="true">3.</strong> Shell</a></li><li class="chapter-item expanded "><a href="tmux.html"><strong aria-hidden="true">4.</strong> Tmux</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">6.</strong> Completion</a></li><li class="chapter-item expanded "><a href="lint-format.html"><strong aria-hidden="true">7.</strong> linting + formatting</a></li><li class="chapter-item expanded "><a href="pytest-vector.html"><strong aria-hidden="true">8.</strong> pytest + vectorization</a></li><li class="chapter-item expanded "><a href="git-vim.html"><strong aria-hidden="true">9.</strong> git in vim</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.</strong> Intro &amp; Requirements</a></li><li class="chapter-item expanded "><a href="dotfiles.html"><strong aria-hidden="true">2.</strong> Dotfiles</a></li><li class="chapter-item expanded "><a href="shell.html"><strong aria-hidden="true">3.</strong> Shell</a></li><li class="chapter-item expanded "><a href="tmux.html"><strong aria-hidden="true">4.</strong> Tmux</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">6.</strong> Completion</a></li><li class="chapter-item expanded "><a href="lint-format.html"><strong aria-hidden="true">7.</strong> linting + formatting</a></li><li class="chapter-item expanded "><a href="pytest-vector.html" class="active"><strong aria-hidden="true">8.</strong> pytest + vectorization</a></li><li class="chapter-item expanded "><a href="git-vim.html"><strong aria-hidden="true">9.</strong> git in vim</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -167,36 +167,24 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="intro"><a class="header" href="#intro">Intro</a></h1>
-<p>A setup of vim, tmux, git for python development with code-completion and linting.</p>
-<h1 id="requirements"><a class="header" href="#requirements">Requirements</a></h1>
-<h2 id="ubuntu-packages"><a class="header" href="#ubuntu-packages">Ubuntu packages</a></h2>
-<pre><code class="language-sh">apt install tmux
-apt install nodejs      # node
-snap install ripgrep    # better grep
-apt install stow        # manage dotfiles
-apt install direnv      # manage environment in directories
-</code></pre>
-<h2 id="miniconda3-python"><a class="header" href="#miniconda3-python">Miniconda3 (Python)</a></h2>
-<p>Install <a href="https://docs.conda.io/en/latest/miniconda.html">miniconda3</a>:</p>
+                        <h1 id="pytest--vectorization"><a class="header" href="#pytest--vectorization">pytest + vectorization</a></h1>
 <ul>
-<li><a href="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh">Linux 64-bit</a></li>
+<li>set up pytest</li>
+<li>vectorize and benchmark some code</li>
 </ul>
-<pre><code class="language-sh">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-sh Miniconda3-latest-Linux-x86_64.sh
-</code></pre>
-<h3 id="creating-an-enviornment"><a class="header" href="#creating-an-enviornment">Creating an enviornment</a></h3>
-<pre><code class="language-sh">conda create -n vtgp python=3
-</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
+                            <a rel="prev" href="lint-format.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
 
                         
-                            <a rel="next" href="dotfiles.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="git-vim.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -208,9 +196,13 @@ sh Miniconda3-latest-Linux-x86_64.sh
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
+                    <a rel="prev" href="lint-format.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
 
                 
-                    <a rel="next" href="dotfiles.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="git-vim.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
