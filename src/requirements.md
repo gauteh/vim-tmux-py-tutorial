@@ -76,9 +76,11 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 sh Miniconda3-latest-Linux-x86_64.sh
 ```
 
-### Creating an enviornment
 
-```sh
-conda create -n wombat python=3
-```
+# Other resources
+
+* Missing semester
+* Gitbook
+* Vimcasts
+* Vimtutor
 
