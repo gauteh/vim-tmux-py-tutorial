@@ -167,11 +167,41 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="setting-up-the-shell"><a class="header" href="#setting-up-the-shell">Setting up the shell</a></h1>
+                        <h1 id="shell"><a class="header" href="#shell">Shell</a></h1>
+<p>Consider using <code>zsh</code>, otherwise <code>bash</code> works fine.</p>
+<h1 id="setting-up-the-shell"><a class="header" href="#setting-up-the-shell">Setting up the shell</a></h1>
 <p>miniconda3 should now be present in <code>.bashrc</code> as part of the <a href="requirements.html">requirements</a> section.</p>
 <h2 id="useful-aliases"><a class="header" href="#useful-aliases">Useful aliases</a></h2>
 <p>Add to <code>.bashrc</code>:</p>
-<pre><code class="language-sh">alias stow='stow -t ~' # target for stow is home directory
+<pre><code class="language-sh">## Paths
+mkdir -p ~/.bin
+export PATH=$PATH:~/.bin
+export PATH=$PATH:~/.vim/plugged/fzf/bin
+export FZF_BASE=~/.vim/plugged/fzf
+
+# Add all subdirs and sub-subdirs in ~/.bin to PATH
+if [[ $(uname) == &quot;Darwin&quot; ]]; then
+  export PATH=$PATH$( find $HOME/.bin/ -print0 | xargs -0 stat -f ':%p' )
+    # export PATH=$PATH$( find $HOME/.bin/*/* -type d -printf &quot;:%p&quot; )
+else
+  export PATH=$PATH$( find $HOME/.bin/ -printf &quot;:%p&quot; )
+  export PATH=$PATH$( find $HOME/.bin/*/* -type d -printf &quot;:%p&quot; )
+fi
+
+# Mac OS path helper
+if [ -e /usr/lib/path_helper ]; then
+  eval `/usr/libexec/path_helper -s`
+fi
+
+export EDITOR=vim
+
+alias stow='stow -t ~' # target for stow is home directory
+alias ll='ls -l'
+if [[ $(uname) == &quot;Darwin&quot; ]]; then
+  alias ls=&quot;ls -G&quot;
+else
+  alias ls=&quot;ls --color=auto&quot;
+fi
 </code></pre>
 <h2 id="bonus-fancy-prompt"><a class="header" href="#bonus-fancy-prompt">Bonus: Fancy prompt</a></h2>
 <p>Install <a href="https://starship.rs/">starship.rs</a>.</p>
@@ -206,6 +236,13 @@ if [[ -e &quot;$HOME/.mconda3&quot; ]]; then
   # &lt;&lt;&lt; conda initialize &lt;&lt;&lt;
 fi
 
+# Node version manager
+if [[ -e &quot;$HOME/.nvm&quot; ]]; then
+  export NVM_DIR=&quot;$HOME/.nvm&quot;
+  [ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm
+  [ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion
+fi
+
 ## Settings
 export HISTFILESIZE=1000000
 
@@ -216,6 +253,7 @@ alias ll='ls -l'
 ## Paths
 
 # Add all subdirs and sub-subdirs in ~/.bin to PATH
+mkdir -p ~/.bin
 if [[ $(uname) == &quot;Darwin&quot; ]]; then
   export PATH=$PATH$( find $HOME/.bin/ -print0 | xargs -0 stat -f ':%p' )
 else

@@ -177,6 +177,39 @@ snap install ripgrep    # better grep
 apt install stow        # manage dotfiles
 apt install direnv      # manage environment in directories
 </code></pre>
+<h2 id="if-you-do-not-have-access-to-install-this-manually"><a class="header" href="#if-you-do-not-have-access-to-install-this-manually">If you do not have access to install this manually</a></h2>
+<blockquote>
+<p>NOTE: Some of these instructions need to be updated to use different binaries if you are on a Mac.</p>
+</blockquote>
+<p>Make dir for binaries:</p>
+<pre><code>mkdir -p ~/.bin
+</code></pre>
+<p>follow instructions in <a href="shell.html">shell</a> for how to add subdirs in <code>.bin</code> to <code>$PATH</code>.</p>
+<p>Node:</p>
+<pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+source ~/.nvm/nvm.sh
+nvm install node
+nvm alias default node
+</code></pre>
+<p>Ripgrep:</p>
+<pre><code>curl -L -o- https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep-12.1.1-x86_64-unknown-linux-musl.tar.gz | tar -C .bin -zx
+</code></pre>
+<p>Direnv:</p>
+<pre><code>curl -L -o- https://github.com/direnv/direnv/releases/download/v2.28.0/direnv.linux-amd64 &gt; ~/.bin/direnv
+chmod +x ~/.bin/direnv
+</code></pre>
+<p>Stow:</p>
+<pre><code>mkdir -p ~/.bin/stow
+cd ~/.bin/stow
+wget http://ftp.gnu.org/gnu/stow/stow-2.3.1.tar.gz
+tar xf stow-2.3.1.tar.gz
+cd stow-2.3.1
+./configure --prefix=$HOME/.bin/stow/inst
+make
+make install
+cd ~/.bin/stow
+ln -s ~/.bin/stow/inst/bin/stow stow
+</code></pre>
 <h2 id="miniconda3-python"><a class="header" href="#miniconda3-python">Miniconda3 (Python)</a></h2>
 <p>Install <a href="https://docs.conda.io/en/latest/miniconda.html">miniconda3</a>:</p>
 <ul>
@@ -186,7 +219,7 @@ apt install direnv      # manage environment in directories
 sh Miniconda3-latest-Linux-x86_64.sh
 </code></pre>
 <h3 id="creating-an-enviornment"><a class="header" href="#creating-an-enviornment">Creating an enviornment</a></h3>
-<pre><code class="language-sh">conda create -n vtgp python=3
+<pre><code class="language-sh">conda create -n wombat python=3
 </code></pre>
 
                     </main>
