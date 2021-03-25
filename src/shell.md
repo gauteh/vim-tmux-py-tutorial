@@ -17,6 +17,6 @@ Install [starship.rs](https://starship.rs/).
 ## Example .bashrc
 
 ```sh
-{{#include ../bash/.bashrc }}
+{{#include ../dotfiles/bash/.bashrc }}
 ```
 
