@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.</strong> Intro &amp; Requirements</a></li><li class="chapter-item expanded "><a href="dotfiles.html"><strong aria-hidden="true">2.</strong> Dotfiles</a></li><li class="chapter-item expanded "><a href="shell.html"><strong aria-hidden="true">3.</strong> Shell</a></li><li class="chapter-item expanded "><a href="tmux.html"><strong aria-hidden="true">4.</strong> Tmux</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">6.</strong> Completion</a></li><li class="chapter-item expanded "><a href="lint-format.html"><strong aria-hidden="true">7.</strong> linting + formatting</a></li><li class="chapter-item expanded "><a href="pytest-vector.html"><strong aria-hidden="true">8.</strong> pytest + vectorization</a></li><li class="chapter-item expanded "><a href="git-vim.html"><strong aria-hidden="true">9.</strong> git in vim</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.</strong> Intro &amp; Requirements</a></li><li class="chapter-item expanded "><a href="dotfiles.html"><strong aria-hidden="true">2.</strong> Dotfiles</a></li><li class="chapter-item expanded "><a href="shell.html"><strong aria-hidden="true">3.</strong> Shell</a></li><li class="chapter-item expanded "><a href="tmux.html"><strong aria-hidden="true">4.</strong> Tmux</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li class="chapter-item expanded "><a href="python-vim.html"><strong aria-hidden="true">6.</strong> Python &amp; vim</a></li><li class="chapter-item expanded "><a href="lint-format.html"><strong aria-hidden="true">7.</strong> linting + formatting</a></li><li class="chapter-item expanded "><a href="pytest-vector.html"><strong aria-hidden="true">8.</strong> pytest + vectorization</a></li><li class="chapter-item expanded "><a href="git-vim.html"><strong aria-hidden="true">9.</strong> git in vim</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -344,6 +344,18 @@ stty ixany
 
 </code></pre>
 <h1 id="tmux"><a class="header" href="#tmux">Tmux</a></h1>
+<h2 id="configuring"><a class="header" href="#configuring">Configuring</a></h2>
+<p>Set up to use the suggested configuration:</p>
+<pre><code>cd dotfiles
+stow tmux
+</code></pre>
+<p>Start tmux:</p>
+<pre><code>tmux
+</code></pre>
+<p>Install plugins:</p>
+<pre><code>C-a E
+</code></pre>
+<h2 id="basic-usage"><a class="header" href="#basic-usage">Basic usage</a></h2>
 <ul>
 <li>Moving around</li>
 <li>Copy-paste-search-scroll</li>
@@ -352,6 +364,15 @@ stty ixany
 <li>Copy-paste to vim</li>
 </ul>
 <h1 id="completion"><a class="header" href="#completion">Completion</a></h1>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>Set up to use the suggested configuration:</p>
+<pre><code>cd dotfiles
+stow vim
+</code></pre>
+<p>Install plugins:</p>
+<pre><code>vim
+</code></pre>
+<p>run the <code>:PlugUpdate</code> command.</p>
 <h2 id="plugins"><a class="header" href="#plugins">Plugins</a></h2>
 <ul>
 <li>vim-plug</li>
@@ -359,18 +380,35 @@ stty ixany
 <li>fugitive</li>
 <li>fzf</li>
 <li>coc.nvim</li>
+<li>vim-norway</li>
+<li>tmux</li>
 </ul>
 <h2 id="moving-around"><a class="header" href="#moving-around">Moving around</a></h2>
-<h1 id="completion-1"><a class="header" href="#completion-1">Completion</a></h1>
-<h2 id="plugins-1"><a class="header" href="#plugins-1">Plugins</a></h2>
-<ul>
-<li>vim-plug</li>
-<li>unimpaired</li>
-<li>fugitive</li>
-<li>fzf</li>
-<li>coc.nvim</li>
-</ul>
-<h2 id="moving-around-1"><a class="header" href="#moving-around-1">Moving around</a></h2>
+<h1 id="python-and-vim"><a class="header" href="#python-and-vim">Python and vim</a></h1>
+<h2 id="make-test-project"><a class="header" href="#make-test-project">Make test project:</a></h2>
+<pre><code>mkdir -p dev/tutorial
+cd dev/tutorial
+</code></pre>
+<h2 id="set-up-conda-environment"><a class="header" href="#set-up-conda-environment">Set up conda environment</a></h2>
+<pre><code>conda create -n wombat python=3
+conda activate wombat
+</code></pre>
+<p>Install linter and formatter:</p>
+<pre><code>conda install pylint yapf
+</code></pre>
+<h2 id="direnv"><a class="header" href="#direnv">Direnv</a></h2>
+<p>Set up direnv to load the environment when you enter the dir:</p>
+<p>vim .envrc</p>
+<pre><code>load_anaconda wombat
+path_add PYTHONPATH $PWD
+</code></pre>
+<p>and allow it:</p>
+<pre><code>direnv allow .
+</code></pre>
+<h2 id="start-making-some-scripts"><a class="header" href="#start-making-some-scripts">Start making some scripts..</a></h2>
+<pre><code>mkdir wombat tests
+</code></pre>
+<p>And ready for vim..</p>
 <h1 id="linting--formatting"><a class="header" href="#linting--formatting">linting + formatting</a></h1>
 <ul>
 <li>pylint</li>

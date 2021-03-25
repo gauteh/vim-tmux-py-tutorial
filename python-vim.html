@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Tmux - vim-tmux-python-git setup</title>
+        <title>Python &amp; vim - vim-tmux-python-git setup</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.</strong> Intro &amp; Requirements</a></li><li class="chapter-item expanded "><a href="dotfiles.html"><strong aria-hidden="true">2.</strong> Dotfiles</a></li><li class="chapter-item expanded "><a href="shell.html"><strong aria-hidden="true">3.</strong> Shell</a></li><li class="chapter-item expanded "><a href="tmux.html" class="active"><strong aria-hidden="true">4.</strong> Tmux</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li class="chapter-item expanded "><a href="python-vim.html"><strong aria-hidden="true">6.</strong> Python &amp; vim</a></li><li class="chapter-item expanded "><a href="lint-format.html"><strong aria-hidden="true">7.</strong> linting + formatting</a></li><li class="chapter-item expanded "><a href="pytest-vector.html"><strong aria-hidden="true">8.</strong> pytest + vectorization</a></li><li class="chapter-item expanded "><a href="git-vim.html"><strong aria-hidden="true">9.</strong> git in vim</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.</strong> Intro &amp; Requirements</a></li><li class="chapter-item expanded "><a href="dotfiles.html"><strong aria-hidden="true">2.</strong> Dotfiles</a></li><li class="chapter-item expanded "><a href="shell.html"><strong aria-hidden="true">3.</strong> Shell</a></li><li class="chapter-item expanded "><a href="tmux.html"><strong aria-hidden="true">4.</strong> Tmux</a></li><li class="chapter-item expanded "><a href="vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li class="chapter-item expanded "><a href="python-vim.html" class="active"><strong aria-hidden="true">6.</strong> Python &amp; vim</a></li><li class="chapter-item expanded "><a href="lint-format.html"><strong aria-hidden="true">7.</strong> linting + formatting</a></li><li class="chapter-item expanded "><a href="pytest-vector.html"><strong aria-hidden="true">8.</strong> pytest + vectorization</a></li><li class="chapter-item expanded "><a href="git-vim.html"><strong aria-hidden="true">9.</strong> git in vim</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -167,39 +167,44 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="tmux"><a class="header" href="#tmux">Tmux</a></h1>
-<h2 id="configuring"><a class="header" href="#configuring">Configuring</a></h2>
-<p>Set up to use the suggested configuration:</p>
-<pre><code>cd dotfiles
-stow tmux
+                        <h1 id="python-and-vim"><a class="header" href="#python-and-vim">Python and vim</a></h1>
+<h2 id="make-test-project"><a class="header" href="#make-test-project">Make test project:</a></h2>
+<pre><code>mkdir -p dev/tutorial
+cd dev/tutorial
 </code></pre>
-<p>Start tmux:</p>
-<pre><code>tmux
+<h2 id="set-up-conda-environment"><a class="header" href="#set-up-conda-environment">Set up conda environment</a></h2>
+<pre><code>conda create -n wombat python=3
+conda activate wombat
 </code></pre>
-<p>Install plugins:</p>
-<pre><code>C-a E
+<p>Install linter and formatter:</p>
+<pre><code>conda install pylint yapf
 </code></pre>
-<h2 id="basic-usage"><a class="header" href="#basic-usage">Basic usage</a></h2>
-<ul>
-<li>Moving around</li>
-<li>Copy-paste-search-scroll</li>
-<li>Refreshing environment</li>
-<li>Moving around with vim seamlessly</li>
-<li>Copy-paste to vim</li>
-</ul>
+<h2 id="direnv"><a class="header" href="#direnv">Direnv</a></h2>
+<p>Set up direnv to load the environment when you enter the dir:</p>
+<p>vim .envrc</p>
+<pre><code>load_anaconda wombat
+path_add PYTHONPATH $PWD
+</code></pre>
+<p>and allow it:</p>
+<pre><code>direnv allow .
+</code></pre>
+<h2 id="start-making-some-scripts"><a class="header" href="#start-making-some-scripts">Start making some scripts..</a></h2>
+<pre><code>mkdir wombat tests
+</code></pre>
+<p>And ready for vim..</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="shell.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="vim.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="vim.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="lint-format.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -211,13 +216,13 @@ stow tmux
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="shell.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="vim.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="vim.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="lint-format.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
