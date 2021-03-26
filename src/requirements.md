@@ -1,20 +1,23 @@
 # Intro
 
-A setup of vim, tmux, git for python development with code-completion and linting.
+A setup of vim, tmux, git for python development with code-completion and
+linting. Some of this overlaps with the [Missing semester
+course](https://missing.csail.mit.edu/) from MIT. This has great and more
+comprehensive resources on the same tools described here.
 
 # Requirements
 
 ## Ubuntu packages
 
 ```sh
-apt install tmux
-apt install nodejs      # node
+apt install tmux vim git
+apt install nodejs      # node for vim completion
 snap install ripgrep    # better grep
 apt install stow        # manage dotfiles
 apt install direnv      # manage environment in directories
 ```
 
-## If you do not have access to install this manually
+## Installing as a regular user
 
 > NOTE: Some of these instructions need to be updated to use different binaries if you are on a Mac.
 
@@ -79,7 +82,7 @@ sh Miniconda3-latest-Linux-x86_64.sh
 
 # Other resources
 
-* Missing semester
+* [Missing semester](https://missing.csail.mit.edu/)
 * Gitbook
 * Vimcasts
 * Vimtutor
