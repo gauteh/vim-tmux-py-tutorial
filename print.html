@@ -170,16 +170,19 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="intro"><a class="header" href="#intro">Intro</a></h1>
-<p>A setup of vim, tmux, git for python development with code-completion and linting.</p>
+<p>A setup of vim, tmux, git for python development with code-completion and
+linting. Some of this overlaps with the <a href="https://missing.csail.mit.edu/">Missing semester
+course</a> from MIT. This has great and more
+comprehensive resources on the same tools described here.</p>
 <h1 id="requirements"><a class="header" href="#requirements">Requirements</a></h1>
 <h2 id="ubuntu-packages"><a class="header" href="#ubuntu-packages">Ubuntu packages</a></h2>
-<pre><code class="language-sh">apt install tmux
-apt install nodejs      # node
+<pre><code class="language-sh">apt install tmux vim git
+apt install nodejs      # node for vim completion
 snap install ripgrep    # better grep
 apt install stow        # manage dotfiles
 apt install direnv      # manage environment in directories
 </code></pre>
-<h2 id="if-you-do-not-have-access-to-install-this-manually"><a class="header" href="#if-you-do-not-have-access-to-install-this-manually">If you do not have access to install this manually</a></h2>
+<h2 id="installing-as-a-regular-user"><a class="header" href="#installing-as-a-regular-user">Installing as a regular user</a></h2>
 <blockquote>
 <p>NOTE: Some of these instructions need to be updated to use different binaries if you are on a Mac.</p>
 </blockquote>
@@ -222,7 +225,7 @@ sh Miniconda3-latest-Linux-x86_64.sh
 </code></pre>
 <h1 id="other-resources"><a class="header" href="#other-resources">Other resources</a></h1>
 <ul>
-<li>Missing semester</li>
+<li><a href="https://missing.csail.mit.edu/">Missing semester</a></li>
 <li>Gitbook</li>
 <li>Vimcasts</li>
 <li>Vimtutor</li>
