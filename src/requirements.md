@@ -69,7 +69,7 @@ ln -s ~/.bin/stow/inst/bin/stow stow
 
 ## Miniconda3 (Python)
 
-Install [miniconda3](https://docs.conda.io/en/latest/miniconda.html):
+Install [miniconda3](https://docs.conda.io/en/latest/miniconda.html) to `~/.mconda3`:
 
 * [Linux 64-bit](https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh)
 
