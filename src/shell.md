@@ -1,6 +1,6 @@
 # Shell
 
-Consider using `zsh`, otherwise `bash` works fine.
+`zsh` is great, otherwise `bash` is also great!
 
 # Setting up the shell
 
