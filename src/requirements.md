@@ -1,9 +1,8 @@
 # Intro
 
 A setup of vim, tmux, git for python development with code-completion and
-linting. Some of this overlaps with the [Missing semester
-course](https://missing.csail.mit.edu/) from MIT. This has great and more
-comprehensive resources on the same tools described here.
+linting. Some of this overlaps with the [missing semester
+course](https://missing.csail.mit.edu/) from MIT (a great resources on the same tools described here!).
 
 # Requirements
 
