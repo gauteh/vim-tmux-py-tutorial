@@ -168,6 +168,17 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="tmux"><a class="header" href="#tmux">Tmux</a></h1>
+<p>Tmux is a terminal multiplexer. It can split your terminal in panes (windows)
+and tabs. And you can detach (send to background) the session and re-attach
+to it later, so that it can run on a server even if you somehow loose the
+connection. By using a common configuration on your machine and server you
+will have exactly the same working environment both locally and remote.</p>
+<p>This config also makes these things work:</p>
+<ul>
+<li>Shares clipboard with vim and system</li>
+<li>Moving between panes and vim-windows as if they are the same</li>
+<li>Use nested local and server tmux (<key>S-Up</key>)</li>
+</ul>
 <h2 id="configuring"><a class="header" href="#configuring">Configuring</a></h2>
 <p>Set up to use the suggested configuration:</p>
 <pre><code>cd dotfiles
@@ -176,17 +187,36 @@ stow tmux
 <p>Start tmux:</p>
 <pre><code>tmux
 </code></pre>
-<p>Install plugins:</p>
-<pre><code>C-a E
+<p>Install or update plugins:</p>
+<pre><code>C-a U
 </code></pre>
 <h2 id="basic-usage"><a class="header" href="#basic-usage">Basic usage</a></h2>
-<ul>
-<li>Moving around</li>
-<li>Copy-paste-search-scroll</li>
-<li>Refreshing environment</li>
-<li>Moving around with vim seamlessly</li>
-<li>Copy-paste to vim</li>
-</ul>
+<p>The prefix is changed to <code>C-a</code> (as it used to be for <code>screen</code>).</p>
+<p>In Tmux the splits are called panes, contratry to in vim where they are
+called windows. In tmux windows are the tabs of vim.</p>
+<h3 id="moving-around"><a class="header" href="#moving-around">Moving around</a></h3>
+<p>Use <code>A-h/j/k/l</code>. Create new windows with <code>C-n</code>, move to next/previous window with: <code>A-n/A-p</code>.</p>
+<p>Use <code>C-a-z</code> to zoom a window. <code>C-a</code> + <code>S-hjkl</code> to resize windows. <code>C-a Space</code> to cycle window layout.</p>
+<h3 id="copying--searching"><a class="header" href="#copying--searching">Copying / searching</a></h3>
+<p>To get to copy-mode: <code>C-a-ESC</code>. You can now search backwards with <code>/</code>, select visually with <code>V</code>, move around with <code>hjkl</code>. Use <code>Enter</code> to finish copying.</p>
+<p>Pasting happens with <code>C-a-p</code>. The clipboard is shared between vim and tmux, so in vim you should be able to do: <code>&quot;+p</code>.</p>
+<p>To copy the text on the current line do: <code>C-a-y</code>, to copy the current directory <code>C-a-Y</code>.</p>
+<h3 id="refreshing-environment"><a class="header" href="#refreshing-environment">Refreshing environment</a></h3>
+<p>If you are working on a server and detach from the session there (closing laptop, disconnected from VPN) the ssh-agent and X forwarding will no longer work when you re-attach. This can be fixed by updating the environment in tmux:</p>
+<pre><code>C-a E
+</code></pre>
+<p>This will update all panes where there is a shell running (if you have vim or
+a program open, you need to close it first to have the environment updated in
+that pane).</p>
+<h2 id="bonus"><a class="header" href="#bonus">Bonus</a></h2>
+<h3 id="sharing-a-session-with-someone-else-on-the-same-server-insecure"><a class="header" href="#sharing-a-session-with-someone-else-on-the-same-server-insecure">Sharing a session with someone else on the same server (insecure)</a></h3>
+<p>Note that this is insecure: anyone that can log into the same machine will have access to your account.</p>
+<pre><code class="language-sh">tmux -S /tmp/shrd new
+chmod og+rwx /tmp/shrd
+</code></pre>
+<p>To attach to the shared screen do:</p>
+<pre><code class="language-sh">tmux -S /tmp/shrd a shared
+</code></pre>
 
                     </main>
 
