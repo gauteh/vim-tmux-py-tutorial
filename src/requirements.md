@@ -75,7 +75,9 @@ Install [miniconda3](https://docs.conda.io/en/latest/miniconda.html) to `~/.mcon
 
 ```sh
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-sh Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh -b -p "${HOME}/.mconda3"
+eval "$(~/.mconda3/bin/conda shell.bash hook)" # or zsh
+conda init # add to .bashrc or .zshrc
 ```
 
 
