@@ -1,0 +1,15 @@
+scratch.txt
+backup
+undo
+swap
+view
+*~
+.VimballRecord
+.netrwhist
+doc/tags
+*.pyc
+index.tags
+tags
+plugged
+autoload/*.old
+

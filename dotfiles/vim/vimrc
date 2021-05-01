@@ -1,0 +1,756 @@
+set nocompatible " use vim (not vi) settings, must be first
+
+syntax on
+filetype plugin indent on
+
+" Plug {{{
+
+" Install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+
+" Essentials
+Plug 'tpope/vim-unimpaired' " Need to learn new keymaps..
+Plug 'tpope/vim-sleuth'     " Detect indents
+Plug 'justinmk/vim-sneak'   " Sneaky find
+Plug 'tpope/vim-repeat'     " Pretty sure I need this, but don't know how it works.
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-eunuch'
+Plug 'gauteh/vim-norway'
+
+" Appearence
+Plug 'tpope/vim-flagship'
+
+" Editing and behavior
+Plug 'simnalamburt/vim-mundo'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-commentary'
+Plug 'matze/vim-move'
+Plug 'tpope/vim-endwise'
+Plug 'junegunn/vim-easy-align'
+Plug 'godlygeek/tabular'
+
+if version > 704
+  Plug 'andymass/vim-matchup'
+endif
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'fszymanski/fzf-quickfix'
+Plug 'pbogut/fzf-mru.vim'
+Plug 'mhinz/vim-grepper'
+
+" Tmux
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+
+" Text Objects
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'   " ae, ie
+Plug 'glts/vim-textobj-comment'  " ac, ic, aC
+Plug 'kana/vim-textobj-indent'   " ai, ii
+Plug 'kana/vim-textobj-fold'     " az, iz
+Plug 'bps/vim-textobj-python', { 'for' : 'python' } " af, if, ac, ic
+
+" Browsing and environment
+Plug 'airblade/vim-rooter'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ton/vim-bufsurf'
+Plug 'moll/vim-bbye'
+Plug 'tyru/open-browser.vim'
+
+Plug 'tpope/vim-projectionist'
+Plug 'editorconfig/editorconfig-vim'
+
+" Source control
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+Plug 'mhinz/vim-signify'
+
+" Completion and code aid
+if has('job') || has('nvim')
+  Plug 'ludovicchabant/vim-gutentags'
+endif
+
+Plug 'honza/vim-snippets'
+Plug 'janko/vim-test'
+
+" Completion
+" Find node through nvm
+let node = substitute(system("bash -c 'source ~/.nvm/nvm.sh; dirname $(nvm which node)'"), '\n', '', 'g')
+let $PATH .= ':' . node
+let g:coc_disable_startup_warning = 1
+let g:coc_global_extensions = ['coc-pyright', 'coc-snippets', 'coc-json']
+if executable('node')
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  let g:has_coc = 1
+else
+  let g:has_coc = 0
+endif
+
+" Folding
+Plug 'kopischke/vim-stay'
+Plug 'kalekundert/vim-coiled-snake'
+Plug 'Konfekt/FastFold'
+Plug 'farmergreg/vim-lastplace'
+
+" Colors and theme
+Plug 'chriskempson/base16-vim'
+
+call plug#end()
+" }}}
+
+" Options {{{
+if has("unix")
+  let $VIMFILES=$HOME."/.vim/"
+endif
+
+set clipboard+=unnamed,unnamedplus
+set shell=bash
+
+set title
+set bsdir=current
+set mouse=a
+set showmode
+set showcmd
+set cmdheight=2
+set updatetime=300
+set wildmenu
+set wildmode=longest:full,full
+set wildignore+=tags,*.pyc
+set history=200
+set shortmess+=tIc
+if exists('+belloff')
+  set belloff=ctrlg
+end
+set scroll=4
+set backspace=2 " normal backspace
+set laststatus=2
+set showtabline=2
+set virtualedit=block
+set lazyredraw
+
+set timeout
+set timeoutlen=1000 ttimeoutlen=0
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+set fileencoding=utf-8
+set termencoding=utf-8
+set encoding=utf-8
+set fileformats=unix,dos,mac
+
+set autowrite     " save file when compiling, switching buffers etc.
+set autoread
+set hidden
+
+" folding
+set foldopen+=jump
+set foldlevel=1
+set viewoptions=cursor,folds,slash,unix
+
+" indentation
+set smartindent
+set autoindent
+if exists('+breakindent')
+  set breakindent showbreak=\ +
+endif
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set expandtab
+set smarttab
+set shiftround
+
+set wrap
+set linebreak
+set nojoinspaces
+
+" backup
+silent exe '! mkdir -p $VIMFILES/backup'
+set backupdir=$VIMFILES/backup
+
+" always show ruler
+set ruler
+set cursorline
+set number
+hi  CursorLine guibg=Grey23 cterm=none ctermbg=234
+
+set noshowmatch " do not show matching bracket on insert
+" }}}
+
+" Appearence {{{
+if exists('+termguicolors')
+  set termguicolors
+endif
+
+let g:lightscheme = "base16-atelier-dune-light"
+let g:darkscheme  = "base16-default-dark"
+
+augroup cuEx
+    au!
+    " highlight current line in insert mode
+    autocmd InsertLeave * se nocul
+    autocmd InsertEnter * se cul
+augroup END
+
+" Toggle light or dark mode
+function! ToggleBackgroundMode()
+  if g:guimode == 0
+    let g:guimode = 1
+    set background=light
+    exe ":colorscheme " . g:lightscheme
+  else
+    let g:guimode = 0
+    set background=dark
+    exe ":colorscheme " . g:darkscheme
+  endif
+endfunction
+
+" toggles light or dark mode
+au VimEnter * nnoremap <expr> yob ToggleBackgroundMode()
+if has('vim_starting')
+  let g:guimode = 1 | call ToggleBackgroundMode() " See vim-unimpaired#120
+endif
+
+" Flagship {{{
+function! Sy_stats_wrapper()
+  let symbols = ['+', '-', '~']
+  let [added, modified, removed] = sy#repo#get_stats()
+  let stats = [added, removed, modified]  " reorder
+  let hunkline = ''
+
+  for i in range(3)
+    if stats[i] > 0
+      let hunkline .= printf('%s%s ', symbols[i], stats[i])
+    endif
+  endfor
+
+  if !empty(hunkline)
+    let hunkline = printf('[%s]', hunkline[:-2])
+  endif
+
+  return hunkline
+endfunction
+
+if g:has_coc
+  function! CocStatusDiagnostic() abort
+    let info = get(b:, 'coc_diagnostic_info', {})
+    if empty(info) | return '' | endif
+    let msgs = []
+    if get(info, 'error', 0)
+      call add(msgs, 'E' . info['error'])
+    endif
+    if get(info, 'warning', 0)
+      call add(msgs, 'W' . info['warning'])
+    endif
+    return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+  endfunction
+endif
+
+augroup Flagship
+  au!
+  autocmd CmdwinEnter,BufEnter,BufRead,BufWritePost * let b:trailing=search('\s\+$','n')
+  autocmd User Flags call Hoist("window", 3, "%{get(b:, 'trailing', 0) ?'[tw]':''}")
+  autocmd User Flags call Hoist("buffer", 1, "Sy_stats_wrapper")
+
+  if g:has_coc
+    autocmd User Flags call Hoist("window", 2, "CocStatusDiagnostic")
+  endif
+augroup END
+
+" }}}
+" }}} Appearance
+" Explore and open external programs {{{
+noremap <silent> <C-e> :exec 'call system("nautilus ' . expand("%:p:h") . ' >/dev/null 2>&1 &")'<CR>
+" }}}
+" General mappings {{{
+let mapleader = ' '
+nnoremap <leader>vv :e $MYVIMRC<CR>
+
+cmap <C-p> <Up>
+cmap <C-n> <Down>
+
+" Take first spelling suggestion
+nnoremap z<Space> 1z=
+
+" Select the text that was last edited/pasted.
+" http://vimcasts.org/episodes/bubbling-text/
+nmap gV `[v`]
+
+" In command mode, type %% to insert the path of the currently edited file, as a shortcut for %:h<tab>.
+cmap %% <C-R>=expand("%:h") . "/" <CR>
+
+" Place cursor at end of new paste
+nnoremap p gp
+nnoremap P gP
+nnoremap gp p
+nnoremap gP P
+
+" fix common typosc
+command! WQ wq
+command! Wq wq
+command! W w
+command! Q q
+command! Qa qa
+command! QA qa
+
+" Always show full path of file with C-g
+nnoremap <C-g> 1<C-g>
+
+" relative path
+nnoremap "+ygf :let @+ = expand("%")<CR>
+nnoremap ygf :let @" = expand("%")<CR>
+
+" full path <C-A-g>
+nnoremap "+ygF :let @+ = expand("%:p")<CR>
+nnoremap ygF :let @" = expand("%:p")<CR>
+
+" Remove trailing whitespaces
+nnoremap <silent> <leader>x :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR><Bar>:echo "Removed whitespaces"<CR>
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+function! RemoveWhiteSpaceOnWrite()
+  let cpos = getpos(".")
+  if (search('\s\+$') != 0)
+    echohl WarningMsg
+    echom "Trailing whitespace in written file"
+    echohl None
+
+    " XXX: Change to BufWritePre in au if using the below:
+    " let mk = input('Remove trailing whitespace?')
+    " if (mk == 'yes' || mk == '')
+    "   echom "Removed trailing whitespace."
+    "   exe '%s/\s\+$//e'
+    " endif
+  endif
+  call cursor(cpos[1], cpos[2])
+endfunction
+
+au BufWritePost * call RemoveWhiteSpaceOnWrite()
+
+" follow tag
+nnoremap <C-t><C-t> <C-]>
+
+cabbrev vh vert bo help
+
+" Toggle quickfix window {{{
+function! QuickFix_toggle(disp)
+  for i in range(1, winnr('$'))
+    let bnum = winbufnr(i)
+    if getbufvar(bnum, '&buftype') == 'quickfix'
+      cclose
+      return
+    endif
+  endfor
+
+  if a:disp == 1
+    Copen " from dispatch
+  else
+    if exists("b:vimtex")
+      VimtexErrors
+    else
+      copen
+    endif
+  endif
+endfunction
+
+nnoremap <silent> coq :call QuickFix_toggle(0)<cr>
+nnoremap <silent> cod :call QuickFix_toggle(1)<cr>
+
+" }}}
+
+" Toggle Location List window {{{
+function! s:BufferCount() abort
+    return len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+endfunction
+
+function! Location_toggle()
+  " https://github.com/Valloric/ListToggle/blob/master/plugin/listtoggle.vim
+  let buffer_count_before = s:BufferCount()
+
+  " Location list can't be closed if there's cursor in it, so we need
+  " to call lclose twice to move cursor to the main pane
+  silent! lclose
+  silent! lclose
+
+  if s:BufferCount() == buffer_count_before
+    lopen
+  endif
+endfunction
+
+nnoremap <silent> coe :call Location_toggle()<cr>
+" }}}
+
+" }}}
+" Undo {{{
+noremap <Leader>u :MundoToggle<CR>
+
+" Make sure undo dir exists
+silent exe '! mkdir -p $VIMFILES/undo'
+
+set undodir=$VIMFILES/undo
+set undofile
+set undolevels=1000
+set undoreload=10000
+
+" Swapfile
+silent exe '! mkdir -p $VIMFILES/swap'
+set directory=$VIMFILES/swap//
+" }}}
+" Moving around, tabs, buffers, windows {{{
+" sensible movements
+noremap <C-j> <C-e>
+noremap <C-k> <C-y>
+noremap <C-h> <C-u>
+noremap <C-l> <C-d>
+
+" window movements
+let g:tmux_navigator_disable_when_zoomed = 1
+let g:tmux_navigator_no_mappings = 1
+if has("gui_running") || has("nvim")
+  nnoremap <silent> <A-h> :TmuxNavigateLeft<cr>
+  nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
+  nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
+  nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
+  " nnoremap <silent> <A-p> :TmuxNavigatePrevious<cr>
+
+else
+  " the same for terminal vim where alt becomes escape codes
+  nnoremap <silent> j :TmuxNavigateDown<cr>
+  nnoremap <silent> k :TmuxNavigateUp<cr>
+  nnoremap <silent> h :TmuxNavigateLeft<cr>
+  nnoremap <silent> l :TmuxNavigateRight<cr>
+  " nnoremap <silent> p :TmuxNavigatePrevious<cr>
+end
+
+" Move window with A-J
+if has("gui_running")
+  nnoremap <silent> Ê <C-W>J<cr>
+  nnoremap <silent> Ë <C-W>K<cr>
+  nnoremap <silent> È <C-W>H<cr>
+  nnoremap <silent> Ì <C-W>L<cr>
+else
+  nnoremap <silent> J <C-W>J<cr>
+  nnoremap <silent> K <C-W>K<cr>
+  nnoremap <silent> H <C-W>H<cr>
+  nnoremap <silent> L <C-W>L<cr>
+endif
+
+
+" Navigate Tabs
+map ]t :tabnext<CR>
+map [t :tabprev<CR>
+map <C-t>n :tabnew<CR>
+map <C-t>c :tabclose<CR>
+map <C-t>s :tab split<CR>
+map <C-t>o :tabonly<CR>
+
+" Navigate Buffers
+map ]f    :BufSurfForward<cr>
+map [f    :BufSurfBack<cr>
+map <C-f>n :enew<CR>
+map <C-f>c :Bdelete<CR>
+
+" Swap back to previous buffer
+nmap <space><space> <C-^>
+
+" Toggle fold
+nmap <space><CR> za
+
+" Close all other buffers
+map <C-f>o :%bd \| e#<CR>
+" }}}
+" Files type specific settings {{{
+augroup python
+  au!
+  au FileType python setlocal sw=2 ts=2
+augroup END
+
+augroup markdown
+  au!
+  au FileType markdown,wiki setlocal makeprg=conda\ run\ --cwd\ %:h\ -n\ pandoc\ pandoc\ --template\ eisvogel\ --filter\ pandoc-crossref\ --filter\ pandoc-citeproc\ %:t\ -o\ %:t:r.pdf
+augroup END
+
+" }}}
+" GIT stuff {{{
+" cycle in git rebase
+au FileType gitrebase nnoremap <buffer> <silent> S :Cycle<CR>
+au FileType git silent! setlocal foldlevel=1
+au BufEnter */.git/index nmap <buffer> q gq
+
+let g:signify_vcs_list = [ 'git' ]
+
+" Git fugitive maps
+nnoremap <leader>gs :G<CR>
+nnoremap <leader>gc :Git commit -v -q<CR>
+nnoremap <leader>ga :Git commit --amend<CR>
+nnoremap <leader>gd :Gvdiffsplit!<CR>
+nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gw :Gwrite<CR><CR>
+
+cabbrev git Git
+
+" Pretty log
+command! -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
+command! -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
+nnoremap <leader>ggr :Ggr<Space>
+nnoremap <leader>co :Git checkout<Space>
+nnoremap <leader>ps :Git push<CR>
+nnoremap <leader>pl :Git pull<CR>
+nnoremap <leader>gl :silent! 0Glog<CR> :redraw!<CR>
+nnoremap <leader>gv :GV<CR>
+
+" same bindings for merging diffs as in normal mode
+xnoremap <leader>dp :diffput<cr>
+xnoremap <leader>do :diffget<cr>
+nnoremap <leader>du :diffupdate<cr>
+nnoremap <leader>dt :diffthis<cr>
+
+function! LazyPut() abort
+  let comment = input("Commit message: ")
+  if strlen(comment) == 0
+    let comment = "... empty ..."
+  endif
+
+  redraw
+  echom "Pushing '" . comment . "' .."
+
+  Git pull
+  Git add .
+  exe 'Git commit -a -m "' .  comment . '"'
+  Git push
+endfunction
+
+nnoremap <silent> <leader>pp :call LazyPut()<CR>
+" }}}
+" Dispatch and make {{{
+nnoremap +d :Dispatch<cr>
+" }}}
+" Sleuth {{{
+let g:sleuth_automatic = 1
+" }}}
+" Open browser {{{
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+" }}}
+" Sneak {{{
+let g:sneak#use_ic_scs = 1 " case sensitivity based on ignorecase/smartcase
+let g:sneak#s_next = 1 " jump again when re-pressing motion-key (reset with other motion)
+map M <Plug>Sneak_,
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+" }}}
+" FZF {{{
+function! MyFiles()
+  let r = system ('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+  execute 'Files' r
+endfunction
+
+nmap <silent> <leader>b :Buffers<CR>
+nmap <silent> <leader>f :call MyFiles()<CR>
+nmap <silent> <leader>m :FZFMru<CR>
+
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --color=never --glob ""'
+  let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81 --color info:144,prompt:161,spinner:135,pointer:135,marker:118'
+endif
+au  FileType fzf tnoremap <buffer> <C-j> <Down>
+
+let g:fzf_quickfix_no_maps = 1
+nmap <leader>q :Quickfix<CR>
+" }}}
+" Grepping {{{
+if executable('rg')
+  let g:grepper = { 'tools' : [ 'rg', 'rgi', 'grep', 'git' ], 'simple_prompt' : 1 }
+  let g:grepper.rgi = { 'grepprg' : 'rg --vimgrep --no-heading -i --sort=modified' }
+  let g:grepper.rg = { 'grepprg' : 'rg --vimgrep --no-heading --sort=modified' }
+
+  " Use ripgrep over Grep
+  set grepprg=rg\ --no-heading\ --vimgrep\ -i\ --sort=modified
+endif
+
+cabbrev Gr GrepperRg
+nmap gr  <plug>(GrepperOperator)
+vmap gr  <plug>(GrepperOperator)
+
+" Fuzzy grepping
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg -i --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+nmap <leader>r :Rg<Space>
+nmap <leader>gr :GrepperRg<Space>
+" }}}
+" Nerdtree {{{
+let g:NERDTreeHijackNetrw=1
+let g:NERDTreeQuitOnOpen=1
+let g:NERDChristmasTree=1
+let g:NERDTreeChDirMode=2
+let g:netrw_browsex_viewer = "xdg-open"
+
+function! ToggleTree()
+  if empty(expand('%:p'))
+    exe ':NERDTreeToggle'
+  else
+    exe ':NERDTreeFind'
+  endif
+endfunction
+
+noremap <leader>e :call ToggleTree()<CR>
+command! E :NERDTreeToggle
+" }}}
+" Commentary {{{
+map  <C-C> gcc
+vmap <C-C> gc
+" }}}
+" Speeddating {{{
+map <C-s> <Plug>SpeedDatingUp
+nmap d<C-s> <Plug>SpeedDatingNowUTC
+" }}}
+" COC.nvim {{{
+if g:has_coc
+  " GoTo code navigation.
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  nmap <leader>af  <Plug>(coc-fix-current)
+
+  " Remap <C-f> and <C-b> for scroll float windows/popups.
+  if has('nvim-0.4.0') || has('patch-8.2.0750')
+    nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
+    nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
+    inoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
+    vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
+  endif
+
+  xmap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap if <Plug>(coc-funcobj-i)
+  omap af <Plug>(coc-funcobj-a)
+  " xmap ic <Plug>(coc-classobj-i)
+  " omap ic <Plug>(coc-classobj-i)
+  " xmap ac <Plug>(coc-classobj-a)
+  " omap ac <Plug>(coc-classobj-a)
+
+  " Add `:Format` command to format current buffer.
+  command! -nargs=0 Format :call CocAction('format')
+  " Formatting selected code.
+  " xmap +f  <Plug>(coc-format-selected)
+  " nmap +f  <Plug>(coc-format-selected)
+  nmap <silent> +f :call CocAction('format')<CR>
+
+  " Add `:Fold` command to fold current buffer.
+  command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+  nmap <silent> [a <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]a <Plug>(coc-diagnostic-next)
+
+  " Snippets
+  let g:coc_snippet_next = '<c-j>'
+  let g:coc_snippet_prev = '<c-k>'
+  imap <C-j> <Plug>(coc-snippets-expand-jump)
+  " Use <C-l> for trigger snippet expand.
+  imap <C-l> <Plug>(coc-snippets-expand)
+  " Use <C-j> for select text for visual placeholder of snippet.
+  vmap <C-j> <Plug>(coc-snippets-select)
+  let g:ultisnips_python_style = 'google'
+
+  " Use tab for trigger completion with characters ahead and navigate.
+  " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+  " other plugin before putting this into your config.
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  " Use <c-space> to trigger completion.
+  if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+  else
+    inoremap <silent><expr> <c-@> coc#refresh()
+  endif
+
+  " Use K to show documentation in preview window.
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+      call CocActionAsync('doHover')
+    else
+      execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
+  endfunction
+endif
+" }}}
+" FastFold {{{
+let g:markdown_folding = 1
+let g:tex_fold_enabled = 1
+let g:vimsyn_folding = 'af'
+let g:javaScript_fold = 1
+let g:sh_fold_enabled= 7
+let g:r_syntax_folding = 1
+let g:rust_fold = 1
+" }}}
+" Vim Move {{{
+let g:move_map_keys = 0
+
+" Move lines in visual mode
+vmap <silent> J <Plug>MoveBlockDown
+vmap <silent> K <Plug>MoveBlockUp
+vmap <silent> H <Plug>MoveBlockLeft
+vmap <silent> L <Plug>MoveBlockRight
+" }}}
+" A {{{
+nmap <silent> ga :A<CR>
+" }}}
+" Testing {{{
+let g:test#strategy = 'dispatch'
+nmap <silent> +tn :TestNearest<CR>
+nmap <silent> +tf :TestFile<CR>
+nmap <silent> +ts :TestSuite<CR>
+nmap <silent> +t. :TestLast<CR>
+nmap <silent> +tgf :TestVisit<CR>
+" }}}
+" EasyAlign {{{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }}}
+" vim: fdm=marker
+
