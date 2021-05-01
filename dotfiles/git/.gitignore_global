@@ -1,0 +1,14 @@
+*.swp
+*.swo
+*~
+.gmt*
+\#*#
+.~lock.*
+~$*
+tags
+.projections.json
+.DS_Store
+__pycache__
+*.pyc
+
+

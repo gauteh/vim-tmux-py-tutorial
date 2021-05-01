@@ -18,7 +18,7 @@ apt install direnv      # manage environment in directories
 
 ## Installing as a regular user
 
-> NOTE: Some of these instructions need to be updated to use different binaries if you are on a Mac.
+> NOTE: Some of these instructions need to be updated to use different binaries if you are on Mac OS or Windows.
 
 Make dir for binaries:
 
