@@ -1,0 +1,9 @@
+{
+  "diagnostic.messageTarget": "echo",
+  "coc.source.around.enable": false,
+  "coc.source.buffer.enable": false,
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+  "rust-analyzer.procMacro.enable": true,
+  "python.formatting.provider": "yapf",
+  "python.linting.pylintEnabled": true
+}
