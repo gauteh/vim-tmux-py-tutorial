@@ -7,6 +7,12 @@ mkdir -p dev/tutorial
 cd dev/tutorial
 ```
 
+## Add conda-forge to channels
+
+```
+conda config --add channels conda-forge
+```
+
 ## Set up conda environment
 
 ```
