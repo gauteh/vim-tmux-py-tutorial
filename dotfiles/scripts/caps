@@ -1,0 +1,13 @@
+#! /bin/bash
+#
+# Map Caps Lock to Escape, use `-u` to restore.
+
+if [[ "$1" != "-u" ]]; then
+  xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+  xmodmap -e 'clear Lock' -e 'keycode 0x42 = Control_L' -e 'add Control = Control_L'
+else
+  xmodmap -e 'add Lock = Caps_Lock' -e 'keycode 0x42 = Caps_Lock'
+fi
+
+
+
