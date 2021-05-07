@@ -9,9 +9,10 @@ course](https://missing.csail.mit.edu/) from MIT (a great resources on the same 
 ## Ubuntu packages
 
 ```sh
-apt install tmux vim git
+apt install tmux vim-gtk git  # use vim-gtk to be able to modify the clipboard
+apt install xsel xclip  # for integrating tmux / vim and the clipboard
 apt install nodejs      # node for vim completion
-snap install ripgrep    # better grep
+snap install ripgrep    # better, faster, grep
 apt install stow        # manage dotfiles
 apt install direnv      # manage environment in directories
 ```
